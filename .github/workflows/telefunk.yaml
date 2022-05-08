@@ -16,7 +16,7 @@ jobs:
       TF_VAR_location: ${{ secrets.location }}
       TF_VAR_registry_name: ${{ secrets.container_registry }}
       TF_VAR_registry_rg: ${{ secrets.container_rg }}
-      TF_VAR_container_image_url: ${{ secrets.container_registry }}.azurecr.io/${{ container.repository }}
+      TF_VAR_container_image_url: ${{ secrets.container_registry }}.azurecr.io/${{ secrets.container_repository }}
       TF_VAR_container_image_tag: ${{ secrets.container_tag }}
     runs-on: ubuntu-latest
     environment: production

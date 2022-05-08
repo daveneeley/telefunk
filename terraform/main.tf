@@ -1,4 +1,10 @@
 terraform {
+  backend "azurerm" {
+    resource_group_name  = var.terraform_backend_resource_group
+    storage_account_name = var.terraform_backend_storage_account
+    container_name       = "terraform_deployments"
+    key                  = "${var.deployment_name}.tfstate"
+  }
   required_providers {
     azurerm = {
       source  = "azurerm"

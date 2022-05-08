@@ -16,6 +16,8 @@ jobs:
       TF_VAR_registry_rg: ${{ secrets.REGISTRY_RG }}
       TF_VAR_container_image_url: ${{ secrets.REGISTRY_NAME }}.azurecr.io/${{ secrets.CONTAINER_REPOSITORY }}
       TF_VAR_container_image_tag: ${{ secrets.CONTAINER_TAG }}
+      TF_VAR_terraform_backend_resource_group: ${{ secrets.TERRAFORM_BACKEND_RESOURCE_GROUP }}
+      TF_VAR_terraform_backend_storage_account: ${{ secrets.TERRAFORM_BACKEND_STORAGE_ACCOUNT }}
       NODE_NAME: ${{ secrets.DEPLOYMENT_NAME }}.${{ secrets.LOCATION }}.azurecontainer.io
     runs-on: ubuntu-latest
     environment: production

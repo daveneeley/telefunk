@@ -1,3 +1,15 @@
+variable "terraform_backend_storage_account" {
+  type        = string
+  description = "The storage account where the tf state files are stored"
+  sensitive   = true
+}
+
+variable "terraform_backend_resource_group" {
+  type        = string
+  description = "The resource group where the tf state files are stored"
+  sensitive   = true
+}
+
 variable "deployment_name" {
   type        = string
   description = "The name of the deployment, used as part of the key for many components including resource group name"

@@ -41,7 +41,7 @@ jobs:
       with:
         tokenPrefix: __
         tokenSuffix: __
-        files: app/config/teleport.yaml, terraform/main.tf
+        files: ../app/config/teleport.yaml, main.tf
   
     - name: ACR Build
       id: acr

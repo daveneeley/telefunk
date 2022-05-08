@@ -48,7 +48,7 @@ jobs:
         service_principal: ${{ secrets.AZURE_AD_CLIENT_ID }}
         service_principal_password: ${{ secrets.AZURE_AD_CLIENT_SECRET }}
         tenant: ${{ secrets.AZURE_AD_TENANT_ID }}
-        registry: ${{ secrets.CONTAINER_REGISTRY }}
+        registry: ${{ secrets.CONTAINER_REGISTRY }}.azurecr.io
         repository: ${{ secrets.CONTAINER_REPOSITORY }}
         tag: ${{ secrets.CONTAINER_TAG }}
         branch: main

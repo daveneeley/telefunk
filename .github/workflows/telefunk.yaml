@@ -18,6 +18,7 @@ jobs:
       TF_VAR_registry_rg: ${{ secrets.container_rg }}
       TF_VAR_container_image_url: ${{ secrets.container_registry }}.azurecr.io/${{ secrets.container_repository }}
       TF_VAR_container_image_tag: ${{ secrets.container_tag }}
+      NODE_NAME: ${{ secrets.deployment_name }}.${{ secrets.location }}.azurecontainer.io
     runs-on: ubuntu-latest
     environment: production
  
@@ -31,7 +32,16 @@ jobs:
     # Checkout the repository to the GitHub Actions runner
     - name: Checkout
       uses: actions/checkout@v2
-    
+
+    - name: Replace tokens
+    # You may pin to the exact commit or the version.
+    # uses: cschleiden/replace-tokens@4f7e3d67f3ff2317ae650842145cdbaefba65189
+    uses: cschleiden/replace-tokens@v1.1
+    with:
+      tokenPrefix: __
+      tokenSuffix: __
+      files: app/config/teleport.yaml   
+  
     - name: ACR Build
       id: acr
       uses: azure/acr-build@v1

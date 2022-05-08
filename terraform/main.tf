@@ -35,8 +35,16 @@ resource "azurerm_resource_group" "this" {
   location = var.location
 }
 
+resource "random_pet" "this" {
+  keepers = {
+    "deployment_name" = var.deployment_name
+  }
+  prefix = "lfasa"
+  length = 28
+}
+
 resource "azurerm_storage_account" "this" {
-  name                     = substr(base64encode("lfasa${var.deployment_name}"), 5, 15)
+  name                     = random_pet.this.id
   resource_group_name      = azurerm_resource_group.this.name
   location                 = azurerm_resource_group.this.location
   account_tier             = "Standard"

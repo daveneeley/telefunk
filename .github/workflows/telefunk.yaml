@@ -10,13 +10,13 @@ jobs:
       ARM_CLIENT_SECRET: ${{ secrets.AZURE_AD_CLIENT_SECRET }}
       ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
       ARM_TENANT_ID: ${{ secrets.AZURE_AD_TENANT_ID }}
-      TF_VAR_deployment_name: ${{ secrets.deployment_name }}
-      TF_VAR_location: ${{ secrets.location }}
-      TF_VAR_registry_name: ${{ secrets.container_registry }}
-      TF_VAR_registry_rg: ${{ secrets.container_rg }}
-      TF_VAR_container_image_url: ${{ secrets.container_registry }}.azurecr.io/${{ secrets.container_repository }}
-      TF_VAR_container_image_tag: ${{ secrets.container_tag }}
-      NODE_NAME: ${{ secrets.deployment_name }}.${{ secrets.location }}.azurecontainer.io
+      TF_VAR_deployment_name: ${{ secrets.DEPLOYMENT_NAME }}
+      TF_VAR_location: ${{ secrets.LOCATION }}
+      TF_VAR_registry_name: ${{ secrets.CONTAINER_REGISTRY }}
+      TF_VAR_registry_rg: ${{ secrets.CONTAINER_RG }}
+      TF_VAR_container_image_url: ${{ secrets.CONTAINER_REGISTRY }}.azurecr.io/${{ secrets.CONTAINER_REPOSITORY }}
+      TF_VAR_container_image_tag: ${{ secrets.CONTAINER_TAG }}
+      NODE_NAME: ${{ secrets.DEPLOYMENT_NAME }}.${{ secrets.LOCATION }}.azurecontainer.io
     runs-on: ubuntu-latest
     environment: production
  
@@ -48,9 +48,9 @@ jobs:
         service_principal: ${{ secrets.AZURE_AD_CLIENT_ID }}
         service_principal_password: ${{ secrets.AZURE_AD_CLIENT_SECRET }}
         tenant: ${{ secrets.AZURE_AD_TENANT_ID }}
-        registry: ${{ secrets.container_registry }}
-        repository: ${{ secrets.container_repository }}
-        tag: ${{ secrets.container_tag }}
+        registry: ${{ secrets.CONTAINER_REGISTRY }}
+        repository: ${{ secrets.CONTAINER_REPOSITORY }}
+        tag: ${{ secrets.CONTAINER_TAG }}
         branch: main
  
     - uses: hashicorp/setup-terraform@v1

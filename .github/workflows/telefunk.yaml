@@ -12,9 +12,9 @@ jobs:
       ARM_TENANT_ID: ${{ secrets.AZURE_AD_TENANT_ID }}
       TF_VAR_deployment_name: ${{ secrets.DEPLOYMENT_NAME }}
       TF_VAR_location: ${{ secrets.LOCATION }}
-      TF_VAR_registry_name: ${{ secrets.CONTAINER_REGISTRY }}
-      TF_VAR_registry_rg: ${{ secrets.CONTAINER_RG }}
-      TF_VAR_container_image_url: ${{ secrets.CONTAINER_REGISTRY }}.azurecr.io/${{ secrets.CONTAINER_REPOSITORY }}
+      TF_VAR_registry_name: ${{ secrets.REGISTRY_NAME }}
+      TF_VAR_registry_rg: ${{ secrets.REGISTRY_RG }}
+      TF_VAR_container_image_url: ${{ secrets.REGISTRY_NAME }}.azurecr.io/${{ secrets.CONTAINER_REPOSITORY }}
       TF_VAR_container_image_tag: ${{ secrets.CONTAINER_TAG }}
       NODE_NAME: ${{ secrets.DEPLOYMENT_NAME }}.${{ secrets.LOCATION }}.azurecontainer.io
     runs-on: ubuntu-latest
@@ -48,7 +48,7 @@ jobs:
         service_principal: ${{ secrets.AZURE_AD_CLIENT_ID }}
         service_principal_password: ${{ secrets.AZURE_AD_CLIENT_SECRET }}
         tenant: ${{ secrets.AZURE_AD_TENANT_ID }}
-        registry: ${{ secrets.CONTAINER_REGISTRY }}.azurecr.io
+        registry: ${{ secrets.REGISTRY_NAME }}.azurecr.io
         repository: ${{ secrets.CONTAINER_REPOSITORY }}
         tag: ${{ secrets.CONTAINER_TAG }}
         branch: main

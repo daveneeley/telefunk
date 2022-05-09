@@ -31,7 +31,7 @@ ssh_service:
     period: 1m0s
 proxy_service:
   enabled: "yes"
-  web_listen_addr: 0.0.0.0:3080
-  public_addr: '{{ .deployment_name }}.{{ .location }}.azurecontainer.io:3080'
+  web_listen_addr: 0.0.0.0:443
+  public_addr: '{{ .deployment_name }}.{{ .location }}.azurecontainer.io:443'
   https_keypairs: []
   acme: {}

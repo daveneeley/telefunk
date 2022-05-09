@@ -46,7 +46,7 @@ resource "random_pet" "this" {
     "deployment_name" = var.deployment_name
   }
   prefix = "lfasa"
-  length = 28
+  length = 24
 }
 
 resource "azurerm_storage_account" "this" {

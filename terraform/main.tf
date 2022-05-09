@@ -1,22 +1,3 @@
-terraform {
-  backend "azurerm" {
-    resource_group_name  = "__TERRAFORM_BACKEND_RESOURCE_GROUP__"
-    storage_account_name = "__TERRAFORM_BACKEND_STORAGE_ACCOUNT__"
-    container_name       = "terraform_deployments"
-    key                  = "__DEPLOYMENT_NAME__.tfstate"
-  }
-  required_providers {
-    azurerm = {
-      source  = "azurerm"
-      version = "=3.5.0"
-    }
-  }
-}
-
-provider "azurerm" {
-  features {}
-}
-
 resource "azurerm_user_assigned_identity" "this" {
   resource_group_name = azurerm_resource_group.this.name
   location            = azurerm_resource_group.this.location
@@ -47,6 +28,7 @@ resource "random_pet" "this" {
   }
   prefix = "lfasa"
   length = 24
+  separator = ""
 }
 
 resource "azurerm_storage_account" "this" {

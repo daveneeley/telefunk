@@ -34,6 +34,12 @@ variable "registry_rg" {
   sensitive   = true
 }
 
+variable "container_repository" {
+  type        = string
+  description = "The name of the repository in the registry, such as myfolder/myimage"
+  sensitive   = true
+}
+
 variable "container_image_url" {
   type        = string
   description = "The full path to the container image"

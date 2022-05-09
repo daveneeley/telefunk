@@ -47,14 +47,12 @@ func main() {
 
 	replaceTokens("terraform/00-providers.tf", "terraform/00-providers.tf", varData)
 
+	replaceTokens(".ci/docker.sh", ".ci/docker.sh", varData)
+
+	script.Exec(".ci/docker.sh").Stdout()
+
 	os.Chdir("terraform")
 
-	script.Exec("terraform fmt -check").Stdout()
-
-	script.Exec("terraform init").Stdout()
-
-	script.Exec("terraform validate -no-color").Stdout()
-
-	script.Exec("terraform plan").Stdout()
+	script.Args().Exec("../.ci/terraform.sh").Stdout()
 
 }

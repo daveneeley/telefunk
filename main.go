@@ -1,6 +1,7 @@
 package main
 
 import (
+	"bytes"
 	"encoding/json"
 	"os"
 
@@ -8,6 +9,26 @@ import (
 
 	"github.com/bitfield/script"
 )
+
+// Load inFile as a template, apply data to it, and write it out to outFile
+func replaceTokens(inFile string, outFile string, data map[string]interface{}) {
+	// load config file
+	configFile, err := script.File(inFile).String()
+	if err != nil {
+		panic(err)
+	}
+
+	// validate template
+	ty := template.Must(template.New("token-file").Parse(configFile))
+
+	// parse the template
+	var loadTheBytesHere bytes.Buffer
+	err = ty.Option("missingkey=error").Execute(&loadTheBytesHere, data)
+	if err != nil {
+		panic(err)
+	}
+	script.NewPipe().WithReader(&loadTheBytesHere).WriteFile(outFile)
+}
 
 func main() {
 	// load vars from json
@@ -22,32 +43,18 @@ func main() {
 		panic(err)
 	}
 
-	// load teleport config
-	teleportConfig, err := script.File("app/config/teleport.yaml").String()
-	if err != nil {
-		panic(err)
-	}
+	replaceTokens("app/config/teleport.yaml", "app/config/teleport.yaml", varData)
 
-	// setup teleport template
-	ty := template.Must(template.New("teleport-yaml").Parse(teleportConfig))
+	replaceTokens("terraform/00-providers.tf", "terraform/00-providers.tf", varData)
 
-	// parse the teleport template
-	err = ty.Option("missingkey=error").Execute(os.Stdout, varData)
-	if err != nil {
-		panic(err)
-	}
+	os.Chdir("terraform")
 
-	// load the main
-	mainTf, err := script.File("terraform/00-providers.tf").String()
-	if err != nil {
-		panic(err)
-	}
+	script.Exec("terraform fmt -check").Stdout()
 
-	mtf := template.Must(template.New("terraform-providers").Parse(mainTf))
+	script.Exec("terraform init").Stdout()
 
-	err = mtf.Option("missingkey=error").Execute(os.Stdout, varData)
-	if err != nil {
-		panic(err)
-	}
+	script.Exec("terraform validate -no-color").Stdout()
+
+	script.Exec("terraform plan").Stdout()
 
 }

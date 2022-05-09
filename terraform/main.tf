@@ -26,8 +26,8 @@ resource "random_pet" "this" {
   keepers = {
     "deployment_name" = var.deployment_name
   }
-  prefix = "lfasa"
-  length = 24
+  prefix    = "lfasa"
+  length    = 24
   separator = ""
 }
 

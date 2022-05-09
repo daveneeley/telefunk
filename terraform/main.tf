@@ -27,12 +27,12 @@ resource "random_pet" "this" {
     "deployment_name" = var.deployment_name
   }
   prefix    = "lfasa"
-  length    = 24
+  length    = 3
   separator = ""
 }
 
 resource "azurerm_storage_account" "this" {
-  name                     = random_pet.this.id
+  name                     = substr(random_pet.this.id, 0, 24)
   resource_group_name      = azurerm_resource_group.this.name
   location                 = azurerm_resource_group.this.location
   account_tier             = "Standard"

@@ -35,7 +35,12 @@ jobs:
     - name: Azure Login
       uses: Azure/login@v1.4.4
       with:
-        creds: '{"clientId": "${{ secrets. AZURE_AD_CLIENT_ID }}", "clientSecret": "${{ secrets.AZURE_AD_CLIENT_SECRET }}", "subscriptionId": "${{ secrets.AZURE_SUBSCRIPTION_ID }}", "tenantId": "${{ secrets.AZURE_AD_TENANT_ID }}", "resourceManagementEndpointUrl": "https://management.azure.com"}'
+        creds: '{"clientId": "${{ secrets.AZURE_AD_CLIENT_ID }}", "clientSecret": "${{ secrets.AZURE_AD_CLIENT_SECRET }}", "subscriptionId": "${{ secrets.AZURE_SUBSCRIPTION_ID }}", "tenantId": "${{ secrets.AZURE_AD_TENANT_ID }}", "resourceManagementEndpointUrl": "https://management.azure.com"}'
+
+    - name: tfvars setup
+      run: echo $TFVARS > terraform/local.auto.tfvars.json
+      env:
+        TFVARS: ${{ secrets.TFVARS_JSON }}
 
     - name: Run build script
       run: go run main.go

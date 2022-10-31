@@ -86,4 +86,8 @@ resource "azurerm_linux_web_app" "this" {
       docker_image_tag = var.container_image_tag
     }
   }
+
+  app_settings {
+    WEBSITES_PORT = "3080"
+  }
 }

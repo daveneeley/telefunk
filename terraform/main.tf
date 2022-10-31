@@ -87,7 +87,7 @@ resource "azurerm_linux_web_app" "this" {
     }
   }
 
-  app_settings {
+  app_settings = {
     WEBSITES_PORT = "3080"
   }
 }

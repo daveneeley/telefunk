@@ -1,0 +1,6 @@
+#!/bin/bash
+inotifywait -m -r -q --event modify /etc/teleport/teleport.yaml | while read FILE
+do
+  echo "something happened on path $FILE"
+  pkill -f teleport
+done
